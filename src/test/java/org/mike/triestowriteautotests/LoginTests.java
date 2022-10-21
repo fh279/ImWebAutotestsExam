@@ -131,7 +131,14 @@ public class LoginTests {
 
     @Test
     public void check_AndrewG_Position(){
-     ;
+     /*
+     * Создаем драйвер, браузер на полный экран, неявное ожидание 8 секунд
+     * Заходим на https://www.intermedia.com/about-us/who-we-are
+     * Найти область, где размещено фото Андрея Г.
+     *      (xPath тут: "//*[@id="about_overview"]/section[3]/div[1]/div/div[1]/div[5]") ,
+     *      запихать найденную область в WebElement area_AndrewG
+     * Написать проверку что в этой области есть текст "Andrew Gachechiladze EVP of Product Development and Engineering"
+     * */
         
     }
 /*Задача
