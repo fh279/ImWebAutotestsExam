@@ -17,17 +17,18 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class LoginTests {
+    static WebDriver driver;
+
     @BeforeClass
     public static void setup() {
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test
     public void priceTest() throws InterruptedException {
-
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         Actions action = new Actions(driver);
 
         driver.get("https://www.intermedia.com/");
@@ -76,21 +77,24 @@ public class LoginTests {
          *   WebElement i'mCurrentCustomerButton.
          * Кликаю на i'mCurrentCustomerButton
          * */
-        WebDriver driver = new ChromeDriver();
+        //WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://www.intermedia.com/products/unite");
         WebElement chatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controller\"]/iframe"));
         driver.switchTo().frame(chatBotFrame);
-        WebElement chatButtonWithAshley = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[3]/div[1]/div[1]/div/div")); // org.openqa.selenium.InvalidArgumentException: invalid argument: uniqueContextId not found
+        //WebElement chatButtonWithAshley = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[3]/div[1]/div[1]/div/div")); // org.openqa.selenium.InvalidArgumentException: invalid argument: uniqueContextId not found
+        WebElement chatButtonWithAshley = driver.findElement(By.cssSelector(".drift-controller-icon--avatar-avatar"));   //  org.openqa.selenium.InvalidArgumentException: invalid argument: uniqueContextId not found
         chatButtonWithAshley.click();
         driver.switchTo().defaultContent();
         WebElement supportChatFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-chat\"]/iframe"));
         driver.switchTo().frame(supportChatFrame);
-        WebElement imCurrentCustomerButton = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[2]/div[2]/div/div[2]/div[1]/div/ul[2]/li[4]"));
-        imCurrentCustomerButton.click();
-        Assert.assertEquals("I'm a current customer/partner", imCurrentCustomerButton.getText()); // org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
-        System.out.println("ну типа я кастомер или лох какой, да?");
+        //WebElement imCurrentCustomerButton = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[2]/div[2]/div/div[2]/div[1]/div/ul[2]/li[4]"));
+        //WebElement imCurrentCustomerButton = driver.findElement(By.cssSelector(".drift-widget-button"));
+        List<WebElement> imCurrentCustomerButtons = driver.findElements(By.cssSelector(".drift-widget-button"));
+        String neededElement = imCurrentCustomerButtons.get(imCurrentCustomerButtons.size()-1).getText();
+        Assert.assertEquals("I'm a current customer/partner", neededElement); // org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
+
     }
 
     @Test
@@ -106,7 +110,7 @@ public class LoginTests {
          * Сравнить данную ссылку и что получено в предыдущем шаге
          * Сделать то же для всех остальных ссылок
          */
-        WebDriver driver = new ChromeDriver();
+        //WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
         driver.get("https://www.intermedia.com/");
@@ -145,7 +149,7 @@ public class LoginTests {
          * Сконвертируем вебдрайвер в JSвебдрайвер для того чтобы из параграфа вытащить innerText.
          * Пройдемся циклом по элементам paragraphsOfAndrewBio и сопоставим их с ожидаемым результатом.
          * */
-        WebDriver driver = new ChromeDriver();
+        //WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.get("https://www.intermedia.com/about-us/who-we-are");
@@ -175,17 +179,17 @@ public class LoginTests {
     }
 
     @Test
-    public void dataValidation_SupportData_Position(){
+    public void dataValidation_SupportData_Position() {
         /* Создаем драйвер
-        *  браузер в полноэкранный режим
-        *  Неявное ожидание 1 секунда
-        *  Ищем элемент с номером телефона, xPath вот:
-        *       "//*[@id="support"]/section[5]/div/div/div[2]/div[2]/p[2]/span[2]/a"
-        *       пихаем его в WebElement supportCallNumber
-        *  Пишем сверку найденного в supportCallNumber текста и номера тех поддержки: 800-379-7729
-        * */
+         *  браузер в полноэкранный режим
+         *  Неявное ожидание 1 секунда
+         *  Ищем элемент с номером телефона, xPath вот:
+         *       "//*[@id="support"]/section[5]/div/div/div[2]/div[2]/p[2]/span[2]/a"
+         *       пихаем его в WebElement supportCallNumber
+         *  Пишем сверку найденного в supportCallNumber текста и номера тех поддержки: 800-379-7729
+         * */
 
-        WebDriver driver = new ChromeDriver();
+        //WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.get("https://www.intermedia.com/support");
