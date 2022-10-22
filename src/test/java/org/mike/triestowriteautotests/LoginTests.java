@@ -53,7 +53,7 @@ public class LoginTests {
         //driver.quit();
     }
 
-    //Что_условия_результат()
+    //описывать имя тестового метода так: Что_условия_результат()
 
     @Test
     public void answersFromSupportBot_NewSession_IsCustomerAnswerExist() throws InterruptedException {
@@ -78,8 +78,7 @@ public class LoginTests {
          * Кликаю на i'mCurrentCustomerButton
          * */
         //WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
         driver.get("https://www.intermedia.com/products/unite");
         WebElement chatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controller\"]/iframe"));
         driver.switchTo().frame(chatBotFrame);
@@ -92,7 +91,7 @@ public class LoginTests {
         //WebElement imCurrentCustomerButton = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[2]/div[2]/div/div[2]/div[1]/div/ul[2]/li[4]"));
         //WebElement imCurrentCustomerButton = driver.findElement(By.cssSelector(".drift-widget-button"));
         List<WebElement> imCurrentCustomerButtons = driver.findElements(By.cssSelector(".drift-widget-button"));
-        String neededElement = imCurrentCustomerButtons.get(imCurrentCustomerButtons.size()-1).getText();
+        String neededElement = imCurrentCustomerButtons.get(imCurrentCustomerButtons.size() - 1).getText();
         Assert.assertEquals("I'm a current customer/partner", neededElement); // org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
 
     }
@@ -110,9 +109,6 @@ public class LoginTests {
          * Сравнить данную ссылку и что получено в предыдущем шаге
          * Сделать то же для всех остальных ссылок
          */
-        //WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
         driver.get("https://www.intermedia.com/");
         // checking youtube link
         WebElement ytButton = driver.findElement(By.xpath("//*[@id=\"social\"]/div[2]/a[1]"));
@@ -149,9 +145,6 @@ public class LoginTests {
          * Сконвертируем вебдрайвер в JSвебдрайвер для того чтобы из параграфа вытащить innerText.
          * Пройдемся циклом по элементам paragraphsOfAndrewBio и сопоставим их с ожидаемым результатом.
          * */
-        //WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.get("https://www.intermedia.com/about-us/who-we-are");
 
         WebElement name_AndrewG = driver.findElement(By.xpath("//*[@id=\"about_overview\"]/section[3]/div[1]/div/div[1]/div[5]/a/div/p[1]"));
@@ -188,22 +181,12 @@ public class LoginTests {
          *       пихаем его в WebElement supportCallNumber
          *  Пишем сверку найденного в supportCallNumber текста и номера тех поддержки: 800-379-7729
          * */
-
-        //WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.get("https://www.intermedia.com/support");
         WebElement supportCallNumber = driver.findElement(By.xpath("//*[@id=\"support\"]/section[5]/div/div/div[2]/div[2]/p[2]/span[2]/a"));
         Assert.assertEquals("800-379-7729", supportCallNumber.getText());
-        //driver.quit();
-
     }
 
-    /*@After
-    public void finishTests(){
-        WebDriver driver = new ChromeDriver();
-        driver.quit();
-    }*/
+
 /*Задача
 Open:
 https://www.intermedia.com/
@@ -212,39 +195,4 @@ https://www.intermedia.com/
 3. Validate links on social media(youtube, facebook, twitter, inst)
 4. Vaildate that Andrew G has the proper position at About US page (Andrew Gachechiladze EVP of Product Development and Engineering).Validate that after click on the name, detailed information is displayed
 5. Validate Contact US page contains proper details: Intermedia Support 800-379-7729 */
-
-/*public static LoginPage loginPage;
-    public static ProfilePage profilePage;
-    public static WebDriver driver;
-
-    @BeforeClass
-    public void setup() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver.exe"); //dfdf
-        driver = new ChromeDriver();
-        loginPage = new LoginPage(driver);
-        profilePage = new ProfilePage(driver);*/
-        /*//WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize(); // ход теста отображается в полностью открытом окне
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // если элемент не найден, то драйвер будет ждать его появления в течении заданного времени (10 секунд) и шагом в 500 мс.
-        driver.get(ConfProperties.getProperty("loginpage"));//"https://passport.yandex.ru/auth"));//     // Передача урла драйверу
-}
-
-    @Test
-    public void loginTest() throws InterruptedException {
-        loginPage.inputLogin("FH279");     //(ConfProperties.getProperty("login"));
-        loginPage.clickLoginBtn(); //нажимаем кнопку входа
-        TimeUnit.SECONDS.sleep(2);
-        loginPage.inputPasswd("Kalaus279n13");     //(ConfProperties.getProperty("password")); //вводим пароль
-        loginPage.clickLoginBtn(); //нажимаем кнопку входа
-        String user = profilePage.getUserName(); //получаем отображаемый логин
-        Assert.assertEquals(ConfProperties.getProperty("login"), user); }         //и сравниваем его с логином из файла настроек
-
-
-    @AfterClass
-    public static void tearDown() {
-        profilePage.entryMenu();
-        profilePage.userLogout();
-        driver.quit();
-    }*/
-
 }
