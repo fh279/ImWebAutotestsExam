@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="01a1c0e3-e556-4db3-8c7a-fd6b8edef149" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="2FzK9yOoMRSManQQTmVAZeybS0l" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.15174508" />
+  </component>
+  <component name="RunManager" selected="JUnit.LoginTests.answersFromSupportBot_NewSession_IsCustomerAnswerExist">
+    <configuration name="LoginTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="YaTestsAgain" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.mike.triestowriteautotests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.mike.triestowriteautotests" />
+      <option name="MAIN_CLASS_NAME" value="org.mike.triestowriteautotests.LoginTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginTests.answersFromSupportBot_NewSession_IsCustomerAnswerExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="YaTestsAgain" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.mike.triestowriteautotests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.mike.triestowriteautotests" />
+      <option name="MAIN_CLASS_NAME" value="org.mike.triestowriteautotests.LoginTests" />
+      <option name="METHOD_NAME" value="answersFromSupportBot_NewSession_IsCustomerAnswerExist" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginTests.dataValidation_AndrewG_Position" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="YaTestsAgain" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.mike.triestowriteautotests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.mike.triestowriteautotests" />
+      <option name="MAIN_CLASS_NAME" value="org.mike.triestowriteautotests.LoginTests" />
+      <option name="METHOD_NAME" value="dataValidation_AndrewG_Position" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginTests.dataValidation_SupportData_Position" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="YaTestsAgain" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.mike.triestowriteautotests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.mike.triestowriteautotests" />
+      <option name="MAIN_CLASS_NAME" value="org.mike.triestowriteautotests.LoginTests" />
+      <option name="METHOD_NAME" value="dataValidation_SupportData_Position" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginTests.priceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="YaTestsAgain" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.mike.triestowriteautotests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.mike.triestowriteautotests" />
+      <option name="MAIN_CLASS_NAME" value="org.mike.triestowriteautotests.LoginTests" />
+      <option name="METHOD_NAME" value="priceTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.LoginTests.answersFromSupportBot_NewSession_IsCustomerAnswerExist" />
+        <item itemvalue="JUnit.LoginTests" />
+        <item itemvalue="JUnit.LoginTests.priceTest" />
+        <item itemvalue="JUnit.LoginTests.dataValidation_SupportData_Position" />
+        <item itemvalue="JUnit.LoginTests.dataValidation_AndrewG_Position" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="01a1c0e3-e556-4db3-8c7a-fd6b8edef149" name="Default Changelist" comment="" />
+      <created>1665489326979</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1665489326979</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/org/mike/triestowriteautotests/LoginTests.java</url>
+          <line>196</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/org/mike/triestowriteautotests/LoginTests.java</url>
+          <line>183</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="supportCallNumber.getText()" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
