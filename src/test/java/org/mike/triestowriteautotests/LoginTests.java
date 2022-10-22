@@ -1,9 +1,7 @@
 package org.mike.triestowriteautotests;
 //import org.checkerframework.checker.units.qual.C;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -51,7 +49,7 @@ public class LoginTests {
         WebElement enterpricePrice = driver.findElement(By.xpath("//*[@id=\"product\"]/section[7]/div/div/div[2]/div[1]/h3/span"));
         Assert.assertEquals("$32.99", enterpricePrice.getText());
         // а вторую цену ты проверить не хочешь?
-        driver.quit();
+        //driver.quit();
     }
 
     //Что_условия_результат()
@@ -84,14 +82,15 @@ public class LoginTests {
         driver.get("https://www.intermedia.com/products/unite");
         WebElement chatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controller\"]/iframe"));
         driver.switchTo().frame(chatBotFrame);
-        WebElement chatButtonWithAshley = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[3]/div[1]/div[1]/div/div"));
+        WebElement chatButtonWithAshley = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[3]/div[1]/div[1]/div/div")); // org.openqa.selenium.InvalidArgumentException: invalid argument: uniqueContextId not found
         chatButtonWithAshley.click();
         driver.switchTo().defaultContent();
         WebElement supportChatFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-chat\"]/iframe"));
         driver.switchTo().frame(supportChatFrame);
         WebElement imCurrentCustomerButton = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[2]/div[2]/div/div[2]/div[1]/div/ul[2]/li[4]"));
         imCurrentCustomerButton.click();
-        Assert.assertEquals("I'm a current customer/partner", imCurrentCustomerButton.getText());
+        Assert.assertEquals("I'm a current customer/partner", imCurrentCustomerButton.getText()); // org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
+        System.out.println("ну типа я кастомер или лох какой, да?");
     }
 
     @Test
@@ -130,7 +129,7 @@ public class LoginTests {
     }
 
     @Test
-    public void check_AndrewG_Position() {
+    public void dataValidation_AndrewG_Position() {
         /*
          * Создаем драйвер, браузер на полный экран, неявное ожидание 8 секунд
          * Заходим на https://www.intermedia.com/about-us/who-we-are
@@ -174,6 +173,33 @@ public class LoginTests {
             Assert.assertEquals(expectedResultsAndrewBio[i], actualText);
         }
     }
+
+    @Test
+    public void dataValidation_SupportData_Position(){
+        /* Создаем драйвер
+        *  браузер в полноэкранный режим
+        *  Неявное ожидание 1 секунда
+        *  Ищем элемент с номером телефона, xPath вот:
+        *       "//*[@id="support"]/section[5]/div/div/div[2]/div[2]/p[2]/span[2]/a"
+        *       пихаем его в WebElement supportCallNumber
+        *  Пишем сверку найденного в supportCallNumber текста и номера тех поддержки: 800-379-7729
+        * */
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        driver.get("https://www.intermedia.com/support");
+        WebElement supportCallNumber = driver.findElement(By.xpath("//*[@id=\"support\"]/section[5]/div/div/div[2]/div[2]/p[2]/span[2]/a"));
+        Assert.assertEquals("800-379-7729", supportCallNumber.getText());
+        //driver.quit();
+
+    }
+
+    /*@After
+    public void finishTests(){
+        WebDriver driver = new ChromeDriver();
+        driver.quit();
+    }*/
 /*Задача
 Open:
 https://www.intermedia.com/
@@ -181,7 +207,7 @@ https://www.intermedia.com/
 2. Check chatBot contains replay “I’m a current customer/partner”.
 3. Validate links on social media(youtube, facebook, twitter, inst)
 4. Vaildate that Andrew G has the proper position at About US page (Andrew Gachechiladze EVP of Product Development and Engineering).Validate that after click on the name, detailed information is displayed
-5. Validate Contact US page contains proper details: Intermedia Support 800-379-7729 (edited) */
+5. Validate Contact US page contains proper details: Intermedia Support 800-379-7729 */
 
 /*public static LoginPage loginPage;
     public static ProfilePage profilePage;
