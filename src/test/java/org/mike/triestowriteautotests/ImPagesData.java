@@ -3,13 +3,13 @@ import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class ConfProperties {
-    /*protected static FileInputStream fileInputStream;// = new FileInputStream("C:\\Users\\mpogorelov\\IdeaProjects\\Yandex tests from GH\\YaTestsAgain\\src\\test\\java\\org\\mike\\triestowriteautotestsaaaaaa");
+public class ImPagesData {
+    protected static FileInputStream fileInputStream;// = new FileInputStream("C:\\Users\\mpogorelov\\IdeaProjects\\Yandex tests from GH\\YaTestsAgain\\src\\test\\java\\org\\mike\\triestowriteautotestsaaaaaa");
     protected static Properties PROPERTIES;
 
     static {
         try {
-            fileInputStream = new FileInputStream("C:\\Users\\mpogorelov\\IdeaProjects\\Yandex tests from GH\\YaTestsAgain\\src\\test\\resources\\conf.properties");
+            fileInputStream = new FileInputStream("C:\\Users\\mpogorelov\\IdeaProjects\\Yandex tests from GH\\YaTestsAgain\\src\\test\\resources\\imPagesData.properties");
             PROPERTIES = new Properties();
             PROPERTIES.load(fileInputStream);
         } catch (IOException e) {
@@ -26,5 +26,5 @@ public class ConfProperties {
 
     public static String getProperty(String key) {
         return PROPERTIES.getProperty(key);
-    }*/
+    }
 }

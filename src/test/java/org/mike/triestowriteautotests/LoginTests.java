@@ -3,60 +3,52 @@ package org.mike.triestowriteautotests;
 
 import org.junit.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.sql.*;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 public class LoginTests {
-    static WebDriver driver;
+    public static WebDriver driver;
+    public static IntermediaMainPage intermediaMainPage;
+    public static IntermediaUniteProductsPage intermediaUniteProductsPage;
+/*Задача
+Open:
+https://www.intermedia.com/
+1. Validate price for UNITE PRO is $27.99, UNITE ENTERPRISE $32.99 (Products → Intermedia Unite)
+2. Check chatBot contains replay “I’m a current customer/partner”.
+3. Validate links on social media(youtube, facebook, twitter, inst)
+4. Vaildate that Andrew G has the proper position at About US page (Andrew Gachechiladze EVP of Product Development and Engineering).Validate that after click on the name, detailed information is displayed
+5. Validate Contact US page contains proper details: Intermedia Support 800-379-7729 */
+    // 1. метод сравнения строк в проверки Андрюхи вынеси в отдельный класс вспомогательных методов.
+    //         может быть туда еще какие то методы можно будет вынести
+    // 2. page object
+    // 3. что то там про пропертис.
+    // 4. вынеси настройки, хардкод и прочее в imPagesData.properties и назови фавйл по человечьи.
 
     @BeforeClass
     public static void setup() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", ImPagesData.getProperty("chromedriver"));//"C:\\Program Files\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.get(ImPagesData.getProperty("mainIMPage")); // не хотим выхов класса пропертей обернуть во что то посимпатичнее?
     }
 
     @Test
-    public void priceTest() throws InterruptedException {
-        Actions action = new Actions(driver);
-
-        driver.get("https://www.intermedia.com/");
-        Thread.sleep(2000);
-
-        // Going to Products chapter (hover on it)
-        WebElement productsButton = driver.findElement(By.xpath("//*[@id=\"primary-nav\"]/li[1]/a"));
-        action.moveToElement(productsButton).perform(); // let move cursor to "products" chapter
-        Thread.sleep(2000);
-
-        // Going to "Intermedia Unite" button
-        WebElement imUniteButton = driver.findElement(By.xpath("//*[@id=\"primary-nav\"]/li[1]/div/div/div/ul[1]/li[2]/a"));
-        action.click(imUniteButton).perform();
-
-        // 1. Validate price for UNITE PRO is $27.99, UNITE ENTERPRISE $32.99
-        WebElement text_ProPlan = driver.findElement(By.xpath("//*[@id=\"product\"]/section[7]/div/div/div[1]/div[1]/h3"));
-        WebElement proPrice = driver.findElement(By.xpath("//*[@id=\"product\"]/section[7]/div/div/div[1]/div[1]/h3/span"));
-        Assert.assertEquals("$27.99", proPrice.getText());
-        WebElement enterpricePrice = driver.findElement(By.xpath("//*[@id=\"product\"]/section[7]/div/div/div[2]/div[1]/h3/span"));
-        Assert.assertEquals("$32.99", enterpricePrice.getText());
-        // а вторую цену ты проверить не хочешь?
-        //driver.quit();
+    public void intermediaPricesTest() throws InterruptedException {
+        intermediaMainPage.hoverIMPopUpMenu();
+        intermediaMainPage.entryIMUniteProductsPage();
+        Assert.assertEquals(ImPagesData.getProperty("proPlanText"), intermediaMainPage.getProPlanText());
+        Assert.assertEquals(ImPagesData.getProperty("enterprisePlanText"), intermediaMainPage.getEnterprisePlanText());
     }
 
     //описывать имя тестового метода так: Что_условия_результат()
 
     @Test
-    public void answersFromSupportBot_NewSession_IsCustomerAnswerExist() throws InterruptedException {
+    public void сhatBotIsUseraCustomer() throws InterruptedException {
         /*
          * Создаем экземпляр драйвера, присваиваиваем его переменной
          * выставляем настройку размера экрана - максимальный (полный)
@@ -77,9 +69,9 @@ public class LoginTests {
          *   WebElement i'mCurrentCustomerButton.
          * Кликаю на i'mCurrentCustomerButton
          * */
-        //WebDriver driver = new ChromeDriver();
 
-        driver.get("https://www.intermedia.com/products/unite");
+
+        driver.get(ImPagesData.getProperty("productsIMPage"));
         WebElement chatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controller\"]/iframe"));
         driver.switchTo().frame(chatBotFrame);
         //WebElement chatButtonWithAshley = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[3]/div[1]/div[1]/div/div")); // org.openqa.selenium.InvalidArgumentException: invalid argument: uniqueContextId not found
@@ -88,12 +80,9 @@ public class LoginTests {
         driver.switchTo().defaultContent();
         WebElement supportChatFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-chat\"]/iframe"));
         driver.switchTo().frame(supportChatFrame);
-        //WebElement imCurrentCustomerButton = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[2]/div[2]/div/div[2]/div[1]/div/ul[2]/li[4]"));
-        //WebElement imCurrentCustomerButton = driver.findElement(By.cssSelector(".drift-widget-button"));
         List<WebElement> imCurrentCustomerButtons = driver.findElements(By.cssSelector(".drift-widget-button"));
         String neededElement = imCurrentCustomerButtons.get(imCurrentCustomerButtons.size() - 1).getText();
         Assert.assertEquals("I'm a current customer/partner", neededElement); // org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
-
     }
 
     @Test
@@ -109,7 +98,7 @@ public class LoginTests {
          * Сравнить данную ссылку и что получено в предыдущем шаге
          * Сделать то же для всех остальных ссылок
          */
-        driver.get("https://www.intermedia.com/");
+        driver.get(ImPagesData.getProperty("mainIMPage"));
         // checking youtube link
         WebElement ytButton = driver.findElement(By.xpath("//*[@id=\"social\"]/div[2]/a[1]"));
         String ytActualURL = ytButton.getAttribute("href");
@@ -145,12 +134,10 @@ public class LoginTests {
          * Сконвертируем вебдрайвер в JSвебдрайвер для того чтобы из параграфа вытащить innerText.
          * Пройдемся циклом по элементам paragraphsOfAndrewBio и сопоставим их с ожидаемым результатом.
          * */
-        driver.get("https://www.intermedia.com/about-us/who-we-are");
-
+        driver.get(ImPagesData.getProperty("whoWeAreIMPage"));
         WebElement name_AndrewG = driver.findElement(By.xpath("//*[@id=\"about_overview\"]/section[3]/div[1]/div/div[1]/div[5]/a/div/p[1]"));
         String expectedAndrewG_name = "Andrew Gachechiladze";
         Assert.assertEquals(expectedAndrewG_name, name_AndrewG.getText());
-
         WebElement duty_AndrewG = driver.findElement(By.xpath("//*[@id=\"about_overview\"]/section[3]/div[1]/div/div[1]/div[5]/a/div/p[2]"));
         String expectedAndrewG_duty = "EVP of Product Development and Engineering";
         Assert.assertEquals(expectedAndrewG_duty, duty_AndrewG.getText());
@@ -163,12 +150,17 @@ public class LoginTests {
                         "During his tenure with the company, Gachechiladze has previously been a senior software developer and a product manager for cloud-based Exchange. Prior to Intermedia, Gachechiladze has held technical and software development roles with a range of companies, including ThinkWave, a cloud-based school administration system. Gachechiladze has a Masters degree in Physics and Computer Science from Tbilisi State University."
                 };
 
-        List<WebElement> paragraphsOfAndrewBio = allBioOfAndrew.findElements(By.tagName("p"));
+        /*List<WebElement> paragraphsOfAndrewBio = allBioOfAndrew.findElements(By.tagName("p"));
         JavascriptExecutor jsDriver = (JavascriptExecutor) driver;
         for (int i = 0; i < paragraphsOfAndrewBio.size(); i++) {
             String actualText = jsDriver.executeScript("return arguments[0].innerText", paragraphsOfAndrewBio.get(i)).toString();
             Assert.assertEquals(expectedResultsAndrewBio[i], actualText);
-        }
+        }*/
+
+        WebElement andrewGphotoButton = driver.findElement(By.cssSelector("#about_overview > section.about-leadership.bg-white.section_p > div.leaders-list > div > div.lead-board > div:nth-child(5) > a > div"));
+        andrewGphotoButton.click();
+        WebElement paragraphsOfAndrewBio = driver.findElement(By.xpath("//*[@id=\"leader_Andrew_Gachechiladze\"]/div[2]/div[2]/p[4]"));
+        System.out.println(paragraphsOfAndrewBio.getText());
     }
 
     @Test
@@ -181,18 +173,8 @@ public class LoginTests {
          *       пихаем его в WebElement supportCallNumber
          *  Пишем сверку найденного в supportCallNumber текста и номера тех поддержки: 800-379-7729
          * */
-        driver.get("https://www.intermedia.com/support");
+        driver.get(ImPagesData.getProperty("supportIMPage"));
         WebElement supportCallNumber = driver.findElement(By.xpath("//*[@id=\"support\"]/section[5]/div/div/div[2]/div[2]/p[2]/span[2]/a"));
         Assert.assertEquals("800-379-7729", supportCallNumber.getText());
     }
-
-
-/*Задача
-Open:
-https://www.intermedia.com/
-1. Validate price for UNITE PRO is $27.99, UNITE ENTERPRISE $32.99 (Products → Intermedia Unite)
-2. Check chatBot contains replay “I’m a current customer/partner”.
-3. Validate links on social media(youtube, facebook, twitter, inst)
-4. Vaildate that Andrew G has the proper position at About US page (Andrew Gachechiladze EVP of Product Development and Engineering).Validate that after click on the name, detailed information is displayed
-5. Validate Contact US page contains proper details: Intermedia Support 800-379-7729 */
 }
