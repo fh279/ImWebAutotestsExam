@@ -1,5 +1,6 @@
 package org.mike.triestowriteautotests;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,9 @@ public class IntermediaMainPage {
         this.driver = driver;
     }
 
-    //* определение локатора меню пользователя
+    // checking youtube link
+    //WebElement ytButton = driver.findElement(By.xpath("//*[@id=\"social\"]/div[2]/a[1]"));
+    //String ytActualURL = ytButton.getAttribute("href");
 
     @FindBy(xpath = "//*[@id=\"primary-nav\"]/li[1]/a")
     private WebElement productsButton;
@@ -25,21 +28,44 @@ public class IntermediaMainPage {
     @FindBy(xpath = "//*[@id=\"primary-nav\"]/li[1]/div/div/div/ul[1]/li[2]/a")
     private WebElement imUniteButton;
 
+    @FindBy(xpath = "//*[@id=\"social\"]/div[2]/a[1]")
+    private WebElement ytButton;
 
+    @FindBy(xpath = "//*[@id=\"social\"]/div[2]/a[2]")
+    private WebElement fbButton;
 
-    // * метод для получения имени пользователя из меню пользователя
+    @FindBy(xpath = "//*[@id=\"social\"]/div[2]/a[3]")
+    private WebElement twButton;
 
-
-
-    // * метод для нажатия кнопки меню пользователя
+    @FindBy(xpath = "//*[@id=\"social\"]/div[2]/a[4]")
+    private WebElement lInButton;
 
     public void entryIMUniteProductsPage() {
         imUniteButton.click();
     }
 
     public void hoverIMPopUpMenu() {
-
         Actions action = new Actions(driver);
         action.moveToElement(productsButton).perform(); // let move cursor to "products" chapter
+    }
+
+    public void checkYouTubeLink(){
+        String ytActualURL = ytButton.getAttribute("href");
+        Assert.assertEquals(ImPagesData.getProperty("YouTubeLink"), ytActualURL);
+    }
+
+    public void checkFaceBookLink(){
+        String fbActualURL = fbButton.getAttribute("href");
+        Assert.assertEquals(ImPagesData.getProperty("FaceBookLink"), fbActualURL);
+    }
+
+    public void checkTwitterLink(){
+        String twActualURL = twButton.getAttribute("href");
+        Assert.assertEquals(ImPagesData.getProperty("TwitterLink"), twActualURL);
+    }
+
+    public void checkLinkedInLink(){
+        String lInActualURL = lInButton.getAttribute("href");
+        Assert.assertEquals(ImPagesData.getProperty("LinkedInLink"), lInActualURL);
     }
 }

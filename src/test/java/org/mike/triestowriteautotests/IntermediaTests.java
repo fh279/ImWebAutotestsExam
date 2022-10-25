@@ -44,7 +44,6 @@ https://www.intermedia.com/
 
     @Test
     public void intermediaPricesTest() throws InterruptedException {
-
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();
         Assert.assertEquals(ImPagesData.getProperty("proPlanText"), uniteProductsPage.getProPlanText());
@@ -78,9 +77,8 @@ https://www.intermedia.com/
         uniteProductsPage.clickOnSupportChatButton();
         uniteProductsPage.checkIsUserACustomer();
     }
-
     @Test
-    public void linksValidation_NewSession_YT_FB_Twitr_LinkdIn() {
+    public void linksYTFBTwitrLinkdInValidation() {
         /* 3. Validate links on social media(youtube, facebook, twitter, inst)
          * создать драйвер
          * Браузер на полный экран
@@ -92,23 +90,10 @@ https://www.intermedia.com/
          * Сравнить данную ссылку и что получено в предыдущем шаге
          * Сделать то же для всех остальных ссылок
          */
-        driver.get(ImPagesData.getProperty("mainIMPage"));
-        // checking youtube link
-        WebElement ytButton = driver.findElement(By.xpath("//*[@id=\"social\"]/div[2]/a[1]"));
-        String ytActualURL = ytButton.getAttribute("href");
-        Assert.assertEquals("https://www.youtube.com/channel/UCU-qlUSGWdMC95HVO5hHPrg", ytActualURL);
-        // checking facebook link
-        WebElement fbButton = driver.findElement(By.xpath("//*[@id=\"social\"]/div[2]/a[2]"));
-        String fbActualURL = fbButton.getAttribute("href");
-        Assert.assertEquals("https://www.facebook.com/intermedia.inc", fbActualURL);
-        // checking twitter link
-        WebElement twButton = driver.findElement(By.xpath("//*[@id=\"social\"]/div[2]/a[3]"));
-        String twActualURL = twButton.getAttribute("href");
-        Assert.assertEquals("https://twitter.com/intermedia_net", twActualURL);
-        // checking linkedin link
-        WebElement lInButton = driver.findElement(By.xpath("//*[@id=\"social\"]/div[2]/a[4]"));
-        String lInActualURL = lInButton.getAttribute("href");
-        Assert.assertEquals("https://www.linkedin.com/company/intermedia", lInActualURL);
+        mainPage.checkYouTubeLink();
+        mainPage.checkFaceBookLink();
+        mainPage.checkTwitterLink();
+        mainPage.checkLinkedInLink();
     }
 
     @Test
@@ -143,13 +128,6 @@ https://www.intermedia.com/
                         "Under Gachechiladze’s leadership, the development team has grown from a group of less than 10 individuals to 100+; from a single office to four different development centers using multiple technologies, including Mountain View, CA, Bellevue, WA, St. Petersburg, Russia and Bristol, UK.",
                         "During his tenure with the company, Gachechiladze has previously been a senior software developer and a product manager for cloud-based Exchange. Prior to Intermedia, Gachechiladze has held technical and software development roles with a range of companies, including ThinkWave, a cloud-based school administration system. Gachechiladze has a Masters degree in Physics and Computer Science from Tbilisi State University."
                 };
-
-        /*List<WebElement> paragraphsOfAndrewBio = allBioOfAndrew.findElements(By.tagName("p"));
-        JavascriptExecutor jsDriver = (JavascriptExecutor) driver;
-        for (int i = 0; i < paragraphsOfAndrewBio.size(); i++) {
-            String actualText = jsDriver.executeScript("return arguments[0].innerText", paragraphsOfAndrewBio.get(i)).toString();
-            Assert.assertEquals(expectedResultsAndrewBio[i], actualText);
-        }*/
 
         WebElement andrewGphotoButton = driver.findElement(By.cssSelector("#about_overview > section.about-leadership.bg-white.section_p > div.leaders-list > div > div.lead-board > div:nth-child(5) > a > div"));
         andrewGphotoButton.click();
