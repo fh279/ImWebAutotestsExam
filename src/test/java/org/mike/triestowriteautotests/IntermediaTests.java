@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +13,7 @@ public class IntermediaTests {
     public static WebDriver driver;
     public static IntermediaMainPage mainPage;
     public static IntermediaUniteProductsPage uniteProductsPage;
+    public static IntermediaWhoWeArePage whoWeArePage;
 /*Задача
 Open:
 https://www.intermedia.com/
@@ -37,6 +36,7 @@ https://www.intermedia.com/
         driver = new ChromeDriver();
         mainPage = new IntermediaMainPage(driver);
         uniteProductsPage = new IntermediaUniteProductsPage(driver);
+        whoWeArePage = new IntermediaWhoWeArePage(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ImPagesData.getProperty("mainIMPage"));
@@ -97,7 +97,7 @@ https://www.intermedia.com/
     }
 
     @Test
-    public void dataValidation_AndrewG_Position() {
+    public void dataValidationAndrewG() {
         /*
          * Создаем драйвер, браузер на полный экран, неявное ожидание 8 секунд
          * Заходим на https://www.intermedia.com/about-us/who-we-are
@@ -113,26 +113,32 @@ https://www.intermedia.com/
          * Сконвертируем вебдрайвер в JSвебдрайвер для того чтобы из параграфа вытащить innerText.
          * Пройдемся циклом по элементам paragraphsOfAndrewBio и сопоставим их с ожидаемым результатом.
          * */
-        driver.get(ImPagesData.getProperty("whoWeAreIMPage"));
+        /*driver.get(ImPagesData.getProperty("whoWeAreIMPage"));
         WebElement name_AndrewG = driver.findElement(By.xpath("//*[@id=\"about_overview\"]/section[3]/div[1]/div/div[1]/div[5]/a/div/p[1]"));
         String expectedAndrewG_name = "Andrew Gachechiladze";
         Assert.assertEquals(expectedAndrewG_name, name_AndrewG.getText());
         WebElement duty_AndrewG = driver.findElement(By.xpath("//*[@id=\"about_overview\"]/section[3]/div[1]/div/div[1]/div[5]/a/div/p[2]"));
         String expectedAndrewG_duty = "EVP of Product Development and Engineering";
-        Assert.assertEquals(expectedAndrewG_duty, duty_AndrewG.getText());
+        Assert.assertEquals(expectedAndrewG_duty, duty_AndrewG.getText());*/
+        //WebElement allBioOfAndrew = driver.findElement(By.xpath("//*[@id=\"leader_Andrew_Gachechiladze\"]/div[2]/div[2]")); // оно вообще зачем? мы это вообще юзаем?
 
-        WebElement allBioOfAndrew = driver.findElement(By.xpath("//*[@id=\"leader_Andrew_Gachechiladze\"]/div[2]/div[2]"));
-        String[] expectedResultsAndrewBio =
-                {"Andrew Gachechiladze leads Intermedia’s product development and engineering groups, overseeing all software development for Intermedia’s cloud platform.",
-                        "With the company since 2001, Gachechiladze has set the foundation for Intermedia’s cloud management and partner portal platforms. He’s been directly involved in scaling the broad suite of integrated cloud applications Intermedia offers today, including third-party products such as Microsoft® Office 365® and proprietary offerings like unified communications, SecuriSync all-in-one backup and file sharing, and our security services portfolio. Further strengthening Intermedia’s solution portfolio, Gachechiladze has also played an integral role in two successful acquisitions.",
-                        "Under Gachechiladze’s leadership, the development team has grown from a group of less than 10 individuals to 100+; from a single office to four different development centers using multiple technologies, including Mountain View, CA, Bellevue, WA, St. Petersburg, Russia and Bristol, UK.",
-                        "During his tenure with the company, Gachechiladze has previously been a senior software developer and a product manager for cloud-based Exchange. Prior to Intermedia, Gachechiladze has held technical and software development roles with a range of companies, including ThinkWave, a cloud-based school administration system. Gachechiladze has a Masters degree in Physics and Computer Science from Tbilisi State University."
-                };
 
-        WebElement andrewGphotoButton = driver.findElement(By.cssSelector("#about_overview > section.about-leadership.bg-white.section_p > div.leaders-list > div > div.lead-board > div:nth-child(5) > a > div"));
-        andrewGphotoButton.click();
-        WebElement paragraphsOfAndrewBio = driver.findElement(By.xpath("//*[@id=\"leader_Andrew_Gachechiladze\"]/div[2]/div[2]/p[4]"));
-        System.out.println(paragraphsOfAndrewBio.getText());
+        //WebElement andrewGphotoButton = driver.findElement(By.cssSelector("#about_overview > section.about-leadership.bg-white.section_p > div.leaders-list > div > div.lead-board > div:nth-child(5) > a > div"));
+        //andrewGphotoButton.click();
+        //WebElement paragraphsOfAndrewBio = driver.findElement(By.xpath("//*[@id=\"leader_Andrew_Gachechiladze\"]/div[2]/div[2]/p[4]"));
+        //List<WebElement> paragraphsOfAndrewBio = allBioOfAndrew.findElements(By.tagName("p"));
+        mainPage.hoverAboutUsButton();
+        mainPage.goToWhoWeArePage();
+        String erAndrewGName = ImPagesData.getProperty("expectedAndrewG_name");
+        Assert.assertEquals(erAndrewGName, whoWeArePage.getAndrewGName());
+        String erAndrewGDuty = ImPagesData.getProperty("expectedAndrewG_duty");
+        Assert.assertEquals(erAndrewGDuty, erAndrewGDuty);
+        whoWeArePage.getButtonAndrewGPhoto().click();
+        for (int i = 0; i < whoWeArePage.getAllAndrewGBio().size(); i++) {
+            String arAndrewGDetailedInfo = whoWeArePage.getAllAndrewGBio().get(i).getText();
+            String erAndrewGDetailedInfo = whoWeArePage.getExpectedResultsAndrewGDetailedInfo()[i];
+            Assert.assertEquals(erAndrewGDetailedInfo, arAndrewGDetailedInfo);
+        }
     }
 
     @Test
@@ -150,3 +156,8 @@ https://www.intermedia.com/
         Assert.assertEquals("800-379-7729", supportCallNumber.getText());
     }
 }
+/*
+* 1. вытащить ассерты в тестовый класс. в pageObject
+* 2. обернуть ER / AR в ассертах в красивые переменные. Все прям в классе.
+* 3.
+* */

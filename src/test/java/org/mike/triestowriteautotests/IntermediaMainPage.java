@@ -40,6 +40,12 @@ public class IntermediaMainPage {
     @FindBy(xpath = "//*[@id=\"social\"]/div[2]/a[4]")
     private WebElement lInButton;
 
+    @FindBy(xpath = "//*[@id=\"primary-nav\"]/li[3]/a")
+    private WebElement aboutUsButton;
+
+    @FindBy(xpath = "//*[@id=\"primary-nav\"]/li[3]/div/div/div/ul[1]/li[2]/a")
+    private WebElement whoWeAreButton;
+
     public void entryIMUniteProductsPage() {
         imUniteButton.click();
     }
@@ -67,5 +73,14 @@ public class IntermediaMainPage {
     public void checkLinkedInLink(){
         String lInActualURL = lInButton.getAttribute("href");
         Assert.assertEquals(ImPagesData.getProperty("LinkedInLink"), lInActualURL);
+    }
+
+    public void hoverAboutUsButton(){
+        Actions action = new Actions(driver);
+        action.moveToElement(aboutUsButton).perform();
+    }
+
+    public void goToWhoWeArePage(){
+        whoWeAreButton.click();
     }
 }

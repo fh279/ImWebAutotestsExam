@@ -22,19 +22,14 @@ public class IntermediaUniteProductsPage {
     //WebElement chatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controller\"]/iframe"));
       //  driver.switchTo().frame(chatBotFrame);
 
-
-
     @FindBy(xpath = "//*[@id=\"product\"]/section[7]/div/div/div[1]/div[1]/h3") //*[@id="product"]/section[7]/div/div/div[1]/div[1]/h3
     private WebElement proPlanArea;   //
 
     @FindBy(xpath = "//*[@id=\"product\"]/section[7]/div/div/div[2]/div[1]/h3")
     private WebElement enterprisePlanArea;
 
-
     //WebElement chatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controller\"]/iframe"));
     //  driver.switchTo().frame(chatBotFrame);
-
-
 
     /*@FindBy(css = ".drift-controller-icon--avatar-avatar")
     private WebElement supportChatButton;*/
@@ -55,7 +50,6 @@ public class IntermediaUniteProductsPage {
         /*driver.switchTo().frame(chatBotFrame);
         WebElement supportChatButton = new WebDriverWait(driver, 15)
                 .until(ExpectedConditions.elementToBeClickable(button1));
-
 
         supportChatButton.click();
         driver.switchTo().defaultContent();
