@@ -75,38 +75,8 @@ https://www.intermedia.com/
          * */
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();
-
-        // click on chat button. Ниже вызов метода, а под ним закомменченный код, перенесенный в метод.
         uniteProductsPage.clickOnSupportChatButton();
-        /*WebElement supportchatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controlle
-        r\"]/iframe"));
-        driver.switchTo().frame(supportchatBotFrame);
-        WebElement supportChatButton = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.elementToBeClickable(By
-                        .cssSelector(".drift-controller-icon--avatar-avatar")));
-        supportChatButton.click();
-        driver.switchTo().defaultContent();*/
-
-        //  Собсна, проверка. Ниже вызов метода, а под ним закомменченный код, который переносился в метод.
         uniteProductsPage.checkIsUserACustomer();
-        /*WebElement chatFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-chat\"]/iframe"));
-
-        driver.switchTo().frame(chatFrame);
-
-
-        WebElement imACustomerChatButton = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.elementToBeClickable(By
-                        .xpath("//*[@id=\"root\"]/main/div[2]/div[2]/div/div[2]/div[1]/div/ul[2]/li[4]/button")));*/
-
-
-        //Assert.assertEquals(ImPagesData.getProperty("customerPartnerButton"), imACustomerChatButton.getText());
-
-
-        //uniteProductsPage.clickOnSupportChatButton();
-        /*uniteProductsPage.getCustomerPartnerButton();*/
-
-
-
     }
 
     @Test
