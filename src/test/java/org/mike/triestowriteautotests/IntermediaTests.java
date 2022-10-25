@@ -6,14 +6,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class LoginTests {
+public class IntermediaTests {
     public static WebDriver driver;
-    public static IntermediaMainPage intermediaMainPage;
-    public static IntermediaUniteProductsPage intermediaUniteProductsPage;
+    public static IntermediaMainPage mainPage;
+    public static IntermediaUniteProductsPage uniteProductsPage;
 /*Задача
 Open:
 https://www.intermedia.com/
@@ -28,35 +29,38 @@ https://www.intermedia.com/
     // 3. что то там про пропертис.
     // 4. вынеси настройки, хардкод и прочее в imPagesData.properties и назови фавйл по человечьи.
 
+    //описывать имя тестового метода так: Что_условия_результат()
+
     @BeforeClass
     public static void setup() {
-        System.setProperty("webdriver.chrome.driver", ImPagesData.getProperty("chromedriver"));//"C:\\Program Files\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", ImPagesData.getProperty("chromedriver"));
         driver = new ChromeDriver();
+        mainPage = new IntermediaMainPage(driver);
+        uniteProductsPage = new IntermediaUniteProductsPage(driver);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.get(ImPagesData.getProperty("mainIMPage")); // не хотим выхов класса пропертей обернуть во что то посимпатичнее?
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get(ImPagesData.getProperty("mainIMPage"));
     }
 
     @Test
     public void intermediaPricesTest() throws InterruptedException {
-        intermediaMainPage.hoverIMPopUpMenu();
-        intermediaMainPage.entryIMUniteProductsPage();
-        Assert.assertEquals(ImPagesData.getProperty("proPlanText"), intermediaMainPage.getProPlanText());
-        Assert.assertEquals(ImPagesData.getProperty("enterprisePlanText"), intermediaMainPage.getEnterprisePlanText());
+
+        mainPage.hoverIMPopUpMenu();
+        mainPage.entryIMUniteProductsPage();
+        Assert.assertEquals(ImPagesData.getProperty("proPlanText"), uniteProductsPage.getProPlanText());
+        Assert.assertEquals(ImPagesData.getProperty("enterprisePlanText"), uniteProductsPage.getEnterprisePlanText());
     }
 
-    //описывать имя тестового метода так: Что_условия_результат()
-
     @Test
-    public void сhatBotIsUseraCustomer() throws InterruptedException {
+    public void chatBotIsUserACustomer() throws InterruptedException {
         /*
          * Создаем экземпляр драйвера, присваиваиваем его переменной
          * выставляем настройку размера экрана - максимальный (полный)
          * Выставляем неявлую задержку выбрасывания исключений == 5 сек.
          * Заходим на страницу https://www.intermedia.com/products/unite
          * Нахожу iframe, где находится кнопка открытия чата (xpath вот: "//*[@id="drift-frame-controller"]/iframe" ).
-         *   Сохраняем его в переменную chatBotFrame.
-         * Переключаемся на frame chatBotFrame,
+         *   Сохраняем его в переменную chatBotFrame2.
+         * Переключаемся на frame chatBotFrame2,
          * Нахожу кнопку открытия чата с поддержкой xPaht вот: "//*[@id="root"]/main/div[3]/div[1]/div[1]/div/div" и
          *   сохраняем его в переменную WebElement chatButtonWithAshley.
          * Кликаем на chatButtonWithAshley.
@@ -69,20 +73,40 @@ https://www.intermedia.com/
          *   WebElement i'mCurrentCustomerButton.
          * Кликаю на i'mCurrentCustomerButton
          * */
+        mainPage.hoverIMPopUpMenu();
+        mainPage.entryIMUniteProductsPage();
+
+        // click on chat button. Ниже вызов метода, а под ним закомменченный код, перенесенный в метод.
+        uniteProductsPage.clickOnSupportChatButton();
+        /*WebElement supportchatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controlle
+        r\"]/iframe"));
+        driver.switchTo().frame(supportchatBotFrame);
+        WebElement supportChatButton = new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.elementToBeClickable(By
+                        .cssSelector(".drift-controller-icon--avatar-avatar")));
+        supportChatButton.click();
+        driver.switchTo().defaultContent();*/
+
+        //  Собсна, проверка. Ниже вызов метода, а под ним закомменченный код, который переносился в метод.
+        uniteProductsPage.checkIsUserACustomer();
+        /*WebElement chatFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-chat\"]/iframe"));
+
+        driver.switchTo().frame(chatFrame);
 
 
-        driver.get(ImPagesData.getProperty("productsIMPage"));
-        WebElement chatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controller\"]/iframe"));
-        driver.switchTo().frame(chatBotFrame);
-        //WebElement chatButtonWithAshley = driver.findElement(By.xpath("//*[@id=\"root\"]/main/div[3]/div[1]/div[1]/div/div")); // org.openqa.selenium.InvalidArgumentException: invalid argument: uniqueContextId not found
-        WebElement chatButtonWithAshley = driver.findElement(By.cssSelector(".drift-controller-icon--avatar-avatar"));   //  org.openqa.selenium.InvalidArgumentException: invalid argument: uniqueContextId not found
-        chatButtonWithAshley.click();
-        driver.switchTo().defaultContent();
-        WebElement supportChatFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-chat\"]/iframe"));
-        driver.switchTo().frame(supportChatFrame);
-        List<WebElement> imCurrentCustomerButtons = driver.findElements(By.cssSelector(".drift-widget-button"));
-        String neededElement = imCurrentCustomerButtons.get(imCurrentCustomerButtons.size() - 1).getText();
-        Assert.assertEquals("I'm a current customer/partner", neededElement); // org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
+        WebElement imACustomerChatButton = new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.elementToBeClickable(By
+                        .xpath("//*[@id=\"root\"]/main/div[2]/div[2]/div/div[2]/div[1]/div/ul[2]/li[4]/button")));*/
+
+
+        //Assert.assertEquals(ImPagesData.getProperty("customerPartnerButton"), imACustomerChatButton.getText());
+
+
+        //uniteProductsPage.clickOnSupportChatButton();
+        /*uniteProductsPage.getCustomerPartnerButton();*/
+
+
+
     }
 
     @Test
