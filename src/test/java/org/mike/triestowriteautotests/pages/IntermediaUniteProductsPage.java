@@ -1,4 +1,4 @@
-package org.mike.triestowriteautotests;
+package org.mike.triestowriteautotests.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -40,11 +40,17 @@ public class IntermediaUniteProductsPage {
 
     private By supportChatButtonFrameLocator = By.xpath("//*[@id=\"drift-frame-chat\"]/iframe");
 
-    public void clickOnSupportChatButton() throws InterruptedException {
+    public void clickOnSupportChatButton() {
         driver.switchTo().frame(supportChatBotFrame);
         WebElement supportChatButton = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.elementToBeClickable(supportChatButtonLocator));
-        Thread.sleep(3000);  // РАЗОБРАТЬСЯ С ОЖИДАНИЯМИ И УБРАТЬ ЭТО!!! ПРОБЛЕМА В НЕПРОГРУЗЕ КНОПКИ ЭШЛИ!!!
+
+        try {
+            Thread.sleep(3000);  // РАЗОБРАТЬСЯ С ОЖИДАНИЯМИ И УБРАТЬ ЭТО!!! ПРОБЛЕМА В НЕПРОГРУЗЕ КНОПКИ ЭШЛИ!!!
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("УЕРИ ЭТО!!!!!");
+        }
         supportChatButton.click();
         /*long time = System.currentTimeMillis();
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
@@ -57,7 +63,7 @@ public class IntermediaUniteProductsPage {
         driver.switchTo().defaultContent();
     }
 
-    public WebElement getIsUserACustomerButton() throws InterruptedException {
+    public WebElement getIsUserACustomerButton() {
         WebElement supportChatFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-chat\"]/iframe"));
         driver.switchTo().frame(supportChatFrame);
         return new WebDriverWait(driver, 10)

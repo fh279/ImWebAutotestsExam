@@ -1,10 +1,18 @@
-package org.mike.triestowriteautotests;
+package org.mike.triestowriteautotests.tests;
 
 import org.junit.*;
+import org.mike.triestowriteautotests.pages.IntermediaMainPage;
+import org.mike.triestowriteautotests.pages.IntermediaSupportPage;
+import org.mike.triestowriteautotests.pages.IntermediaUniteProductsPage;
+import org.mike.triestowriteautotests.pages.IntermediaWhoWeArePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
+import static org.mike.triestowriteautotests.dataprovider.ImPagesData.getProperty;
 
 public class IntermediaTests {
     public static WebDriver driver;
@@ -29,7 +37,7 @@ public class IntermediaTests {
     //описывать имя тестового метода так: Что_условия_результат()
     @BeforeClass
     public static void setup() {
-        System.setProperty("webdriver.chrome.driver", ImPagesData.getProperty("chromedriver"));
+        System.setProperty("webdriver.chrome.driver", getProperty("chromedriver"));
         driver = new ChromeDriver();
         mainPage = new IntermediaMainPage(driver);
         uniteProductsPage = new IntermediaUniteProductsPage(driver);
@@ -40,76 +48,77 @@ public class IntermediaTests {
     }
 
     @Test
-    public void intermediaPricesTest() throws InterruptedException {
-        driver.get(ImPagesData.getProperty("mainIMPage"));
+    public void intermediaPricesTest() {
+        driver.get(getProperty("mainIMPage"));
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();
-        Assert.assertEquals(ImPagesData.getProperty("proPlanText"), uniteProductsPage.getProPlanText());
-        Assert.assertEquals(ImPagesData.getProperty("enterprisePlanText"), uniteProductsPage.getEnterprisePlanText());
+        assertEquals(getProperty("proPlanText"), uniteProductsPage.getProPlanText());
+        assertEquals(getProperty("enterprisePlanText"), uniteProductsPage.getEnterprisePlanText());
     }
 
     @Test
-    public void chatBotIsUserACustomer() throws InterruptedException {
-        driver.get(ImPagesData.getProperty("mainIMPage"));
+    public void chatBotIsUserACustomer() {
+        driver.get(getProperty("mainIMPage"));
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();
         uniteProductsPage.clickOnSupportChatButton();
-        String erCustomerPartnerButton = ImPagesData.getProperty("customerPartnerButton");
+        String erCustomerPartnerButton = getProperty("customerPartnerButton");
         String arCustomerPartnerButton = uniteProductsPage.getIsUserACustomerButton().getText();
-        Assert.assertEquals(erCustomerPartnerButton, arCustomerPartnerButton);
+        assertEquals(erCustomerPartnerButton, arCustomerPartnerButton);
     }
 
     @Test
-    public void linksYTFBTwitrLinkdInValidation() {
-        driver.get(ImPagesData.getProperty("mainIMPage"));
+    public void linksSocialMediaValidation() {
+        driver.get(getProperty("mainIMPage"));
 
-        String erYouTubeLink = ImPagesData.getProperty("YouTubeLink");
+        String erYouTubeLink = getProperty("YouTubeLink");
         String arYouTubeLink = mainPage.getYouTubeLink();
-        Assert.assertEquals(erYouTubeLink, arYouTubeLink);
+        assertEquals(erYouTubeLink, arYouTubeLink);
 
-        String erFaceBookLink = ImPagesData.getProperty("FaceBookLink");
+        String erFaceBookLink = getProperty("FaceBookLink");
         String arFaceBookLink = mainPage.getFaceBookLink();
-        ;
-        Assert.assertEquals(erFaceBookLink, arFaceBookLink);
+        assertEquals(erFaceBookLink, arFaceBookLink);
 
-        String erTwitterLink = ImPagesData.getProperty("TwitterLink");
+        String erTwitterLink = getProperty("TwitterLink");
         String arTwitterLink = mainPage.getTwitterLink();
-        Assert.assertEquals(erTwitterLink, arTwitterLink);
+        assertEquals(erTwitterLink, arTwitterLink);
 
-        String erLinkedInLink = ImPagesData.getProperty("LinkedInLink");
+        String erLinkedInLink = getProperty("LinkedInLink");
         String arLinkedInLink = mainPage.getLinkedInLink();
-        Assert.assertEquals(erLinkedInLink, arLinkedInLink);
+        assertEquals(erLinkedInLink, arLinkedInLink);
     }
 
     @Test
     public void dataValidationAndrewG() {
-        driver.get(ImPagesData.getProperty("mainIMPage"));
+        driver.get(getProperty("mainIMPage"));
         mainPage.hoverAboutUsButton();
         mainPage.goToWhoWeArePage();
-        String erAndrewGName = ImPagesData.getProperty("expectedAndrewG_name");
+
+        String erAndrewGName = getProperty("expectedAndrewG_name");
         String arAndrewGName = whoWeArePage.getAndrewGName();
-        Assert.assertEquals(erAndrewGName, arAndrewGName);
-        String erAndrewGDuty = ImPagesData.getProperty("expectedAndrewG_duty");
+        assertEquals(erAndrewGName, arAndrewGName);
+
+        String erAndrewGDuty = getProperty("expectedAndrewG_duty");
         String arAndrewGDuty = whoWeArePage.getAndrewGDuty();
-        Assert.assertEquals(erAndrewGDuty, arAndrewGDuty);
+        assertEquals(erAndrewGDuty, arAndrewGDuty);
+
         whoWeArePage.getButtonAndrewGPhoto().click();
         for (int i = 0; i < whoWeArePage.getAllAndrewGBio().size(); i++) {
             String arAndrewGDetailedInfo = whoWeArePage.getAllAndrewGBio().get(i).getText();
             String erAndrewGDetailedInfo = whoWeArePage.getExpectedResultsAndrewGDetailedInfo()[i];
-            Assert.assertEquals(erAndrewGDetailedInfo, arAndrewGDetailedInfo);
+            assertEquals(erAndrewGDetailedInfo, arAndrewGDetailedInfo);
+            // выполни сравнение 2 массивов, а не проход, будет лаконичнее.
+            // либо вверни сюда SoftAssert.
         }
     }
 
     @Test
     public void supportCallNumberValidation() {
-        driver.get(ImPagesData.getProperty("supportIMPage"));
-        String erSupportCallNumber = ImPagesData.getProperty("erSupportCallNumber");
+        driver.get(getProperty("supportIMPage"));
+        String erSupportCallNumber = getProperty("erSupportCallNumber");
         String arSupportCallNumber = intermediaSupportPage.arSupportCallNumber();
-        Assert.assertEquals(erSupportCallNumber, arSupportCallNumber);
+        assertEquals(erSupportCallNumber, arSupportCallNumber);
     }
 }
-/*
- * 1. вытащить ассерты в тестовый класс. в pageObject
- * 2. обернуть ER / AR в ассертах в красивые переменные. Все прям в классе.
- * 3.
- * */
+// переделай метод с Андреем Г.
+// разберись с ожиданиями.

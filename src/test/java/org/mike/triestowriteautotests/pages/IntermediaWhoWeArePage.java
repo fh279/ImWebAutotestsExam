@@ -1,4 +1,4 @@
-package org.mike.triestowriteautotests;
+package org.mike.triestowriteautotests.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

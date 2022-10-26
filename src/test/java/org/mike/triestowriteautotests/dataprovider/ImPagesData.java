@@ -1,4 +1,4 @@
-package org.mike.triestowriteautotests;
+package org.mike.triestowriteautotests.dataprovider;
 
 import java.util.Properties;
 import java.io.FileInputStream;

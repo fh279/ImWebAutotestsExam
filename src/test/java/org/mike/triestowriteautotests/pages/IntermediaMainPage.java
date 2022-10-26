@@ -1,6 +1,5 @@
-package org.mike.triestowriteautotests;
+package org.mike.triestowriteautotests.pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
