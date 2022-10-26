@@ -14,6 +14,7 @@ public class IntermediaTests {
     public static IntermediaMainPage mainPage;
     public static IntermediaUniteProductsPage uniteProductsPage;
     public static IntermediaWhoWeArePage whoWeArePage;
+    public static IntermediaSupportPage intermediaSupportPage;
 /*Задача
 Open:
 https://www.intermedia.com/
@@ -37,6 +38,7 @@ https://www.intermedia.com/
         mainPage = new IntermediaMainPage(driver);
         uniteProductsPage = new IntermediaUniteProductsPage(driver);
         whoWeArePage = new IntermediaWhoWeArePage(driver);
+        intermediaSupportPage = new IntermediaSupportPage(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ImPagesData.getProperty("mainIMPage"));
@@ -142,7 +144,7 @@ https://www.intermedia.com/
     }
 
     @Test
-    public void dataValidation_SupportData_Position() {
+    public void supportCallNumberValidation() {
         /* Создаем драйвер
          *  браузер в полноэкранный режим
          *  Неявное ожидание 1 секунда
@@ -152,8 +154,9 @@ https://www.intermedia.com/
          *  Пишем сверку найденного в supportCallNumber текста и номера тех поддержки: 800-379-7729
          * */
         driver.get(ImPagesData.getProperty("supportIMPage"));
-        WebElement supportCallNumber = driver.findElement(By.xpath("//*[@id=\"support\"]/section[5]/div/div/div[2]/div[2]/p[2]/span[2]/a"));
-        Assert.assertEquals("800-379-7729", supportCallNumber.getText());
+        String erSupportCallNumber = ImPagesData.getProperty("erSupportCallNumber");
+        String arSupportCallNumber = intermediaSupportPage.arSupportCallNumber();
+        Assert.assertEquals(erSupportCallNumber, arSupportCallNumber);
     }
 }
 /*
