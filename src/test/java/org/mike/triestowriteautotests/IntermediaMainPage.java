@@ -46,14 +46,16 @@ public class IntermediaMainPage {
     @FindBy(xpath = "//*[@id=\"primary-nav\"]/li[3]/div/div/div/ul[1]/li[2]/a")
     private WebElement whoWeAreButton;
 
+    public void hoverIMPopUpMenu() {
+        Actions action = new Actions(driver);
+        action.moveToElement(productsButton).perform();
+    }
+
     public void entryIMUniteProductsPage() {
         imUniteButton.click();
     }
 
-    public void hoverIMPopUpMenu() {
-        Actions action = new Actions(driver);
-        action.moveToElement(productsButton).perform(); // let move cursor to "products" chapter
-    }
+
 
     public String getYouTubeLink(){
         return ytButton.getAttribute("href") ;
