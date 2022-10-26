@@ -87,9 +87,11 @@ public class IntermediaTests {
         mainPage.hoverAboutUsButton();
         mainPage.goToWhoWeArePage();
         String erAndrewGName = ImPagesData.getProperty("expectedAndrewG_name");
-        Assert.assertEquals(erAndrewGName, whoWeArePage.getAndrewGName());
+        String arAndrewGName = whoWeArePage.getAndrewGName();
+        Assert.assertEquals(erAndrewGName, arAndrewGName);
         String erAndrewGDuty = ImPagesData.getProperty("expectedAndrewG_duty");
-        Assert.assertEquals(erAndrewGDuty, erAndrewGDuty);
+        String arAndrewGDuty = whoWeArePage.getAndrewGDuty();
+        Assert.assertEquals(erAndrewGDuty, arAndrewGDuty);
         whoWeArePage.getButtonAndrewGPhoto().click();
         for (int i = 0; i < whoWeArePage.getAllAndrewGBio().size(); i++) {
             String arAndrewGDetailedInfo = whoWeArePage.getAllAndrewGBio().get(i).getText();

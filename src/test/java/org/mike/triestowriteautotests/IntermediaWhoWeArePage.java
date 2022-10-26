@@ -39,6 +39,10 @@ public class IntermediaWhoWeArePage {
         return nameAndrewG.getText();
     }
 
+    public String getAndrewGDuty(){
+        return dutyAndrewG.getText();
+    }
+
     public WebElement getButtonAndrewGPhoto() {
         return buttonAndrewGPhoto;
     }
