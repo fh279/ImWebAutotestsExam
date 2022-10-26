@@ -13,14 +13,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class IntermediaMainPage {
 
     public WebDriver driver;
+
     public IntermediaMainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
-
-    // checking youtube link
-    //WebElement ytButton = driver.findElement(By.xpath("//*[@id=\"social\"]/div[2]/a[1]"));
-    //String ytActualURL = ytButton.getAttribute("href");
 
     @FindBy(xpath = "//*[@id=\"primary-nav\"]/li[1]/a")
     private WebElement productsButton;
@@ -55,34 +52,28 @@ public class IntermediaMainPage {
         imUniteButton.click();
     }
 
-
-
-    public String getYouTubeLink(){
-        return ytButton.getAttribute("href") ;
-
+    public String getYouTubeLink() {
+        return ytButton.getAttribute("href");
     }
 
-    public String getFaceBookLink(){
+    public String getFaceBookLink() {
         return fbButton.getAttribute("href");
-
     }
 
-    public String getTwitterLink(){
+    public String getTwitterLink() {
         return twButton.getAttribute("href");
-
     }
 
-    public String getLinkedInLink(){
+    public String getLinkedInLink() {
         return lInButton.getAttribute("href");
-
     }
 
-    public void hoverAboutUsButton(){
+    public void hoverAboutUsButton() {
         Actions action = new Actions(driver);
         action.moveToElement(aboutUsButton).perform();
     }
 
-    public void goToWhoWeArePage(){
+    public void goToWhoWeArePage() {
         whoWeAreButton.click();
     }
 }

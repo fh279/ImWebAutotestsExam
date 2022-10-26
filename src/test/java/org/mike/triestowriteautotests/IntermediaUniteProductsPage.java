@@ -14,47 +14,41 @@ import java.util.List;
 public class IntermediaUniteProductsPage {
 
     public WebDriver driver;
+
     public IntermediaUniteProductsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver; }
-
-    //WebElement chatBotFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-controller\"]/iframe"));
-      //  driver.switchTo().frame(chatBotFrame);
+        this.driver = driver;
+    }
 
     @FindBy(xpath = "//*[@id=\"drift-frame-controller\"]/iframe")
     WebElement supportChatBotFrame;
 
-    @FindBy(xpath = "//*[@id=\"product\"]/section[7]/div/div/div[1]/div[1]/h3") //*[@id="product"]/section[7]/div/div/div[1]/div[1]/h3
+    @FindBy(xpath = "//*[@id=\"product\"]/section[7]/div/div/div[1]/div[1]/h3")
+    //*[@id="product"]/section[7]/div/div/div[1]/div[1]/h3
     private WebElement proPlanArea;   //
 
     @FindBy(xpath = "//*[@id=\"product\"]/section[7]/div/div/div[2]/div[1]/h3")
     private WebElement enterprisePlanArea;
 
-    private By supportChatButtonLocator = By.xpath("//*[@id=\"root\"]/main/div[2]/div"); // сейчас тут локатор аватарка + текст. большое поле.
-
-    @FindBy(css = ".drift-widget-button")
-    private List<WebElement> buttons;
+    private By supportChatButtonLocator = By.xpath("//*[@id=\"root\"]/main/div[2]/div"); // This is a locator not only of the avatar itself, but also of the entire area, clicking on which opens a chat with support
 
     private By userIsAPartnerCustomerButton = By.xpath("//*[@id=\"root\"]/main/div[2]/div[2]/div/div[2]/div[1]/div/ul[2]/li[4]/button");
 
     private By supportChatButtonFrameLocator = By.xpath("//*[@id=\"drift-frame-chat\"]/iframe");
 
-    public void clickOnSupportChatButton(){
+    public void clickOnSupportChatButton() {
         driver.switchTo().frame(supportChatBotFrame);
         WebElement supportChatButton = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.elementToBeClickable(supportChatButtonLocator));
-
         supportChatButton.click();
-
         driver.switchTo().defaultContent();
     }
 
-    public WebElement getIsUserACustomerButton(){
+    public WebElement getIsUserACustomerButton() {
         WebElement supportChatFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-chat\"]/iframe"));
-        driver.switchTo().frame(supportChatFrame); // переключаемся на фрейм уже самого чата.
+        driver.switchTo().frame(supportChatFrame);
         return new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.elementToBeClickable(userIsAPartnerCustomerButton)); // в чате мы уже видим..
-
+                .until(ExpectedConditions.elementToBeClickable(userIsAPartnerCustomerButton));
     }
 
     public String getProPlanText() {
@@ -64,6 +58,4 @@ public class IntermediaUniteProductsPage {
     public String getEnterprisePlanText() {
         return enterprisePlanArea.getText();
     }
-
-
 }
