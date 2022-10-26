@@ -1,7 +1,5 @@
 package org.mike.triestowriteautotests;
 
-import com.google.common.collect.Multimaps;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -1,5 +1,4 @@
 package org.mike.triestowriteautotests;
-//import org.checkerframework.checker.units.qual.C;
 
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
@@ -42,13 +41,11 @@ public class IntermediaTests {
 
     @Test
     public void intermediaPricesTest() throws InterruptedException {
-        System.out.println("intermediaPricesTest - погнали");
         driver.get(ImPagesData.getProperty("mainIMPage"));
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();
         Assert.assertEquals(ImPagesData.getProperty("proPlanText"), uniteProductsPage.getProPlanText());
         Assert.assertEquals(ImPagesData.getProperty("enterprisePlanText"), uniteProductsPage.getEnterprisePlanText());
-        System.out.println("intermediaPricesTest - Пройдено");
     }
 
     @Test
@@ -82,8 +79,6 @@ public class IntermediaTests {
         String erLinkedInLink = ImPagesData.getProperty("LinkedInLink");
         String arLinkedInLink = mainPage.getLinkedInLink();
         Assert.assertEquals(erLinkedInLink, arLinkedInLink);
-
-        System.out.println("linksYTFBTwitrLinkdInValidation - Пройдено");
     }
 
     @Test

@@ -24,8 +24,7 @@ public class IntermediaUniteProductsPage {
     WebElement supportChatBotFrame;
 
     @FindBy(xpath = "//*[@id=\"product\"]/section[7]/div/div/div[1]/div[1]/h3")
-    //*[@id="product"]/section[7]/div/div/div[1]/div[1]/h3
-    private WebElement proPlanArea;   //
+    private WebElement proPlanArea;
 
     @FindBy(xpath = "//*[@id=\"product\"]/section[7]/div/div/div[2]/div[1]/h3")
     private WebElement enterprisePlanArea;
