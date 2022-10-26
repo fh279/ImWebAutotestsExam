@@ -55,24 +55,24 @@ public class IntermediaMainPage {
         action.moveToElement(productsButton).perform(); // let move cursor to "products" chapter
     }
 
-    public void checkYouTubeLink(){
-        String ytActualURL = ytButton.getAttribute("href");
-        Assert.assertEquals(ImPagesData.getProperty("YouTubeLink"), ytActualURL);
+    public String getYouTubeLink(){
+        return ytButton.getAttribute("href") ;
+
     }
 
-    public void checkFaceBookLink(){
-        String fbActualURL = fbButton.getAttribute("href");
-        Assert.assertEquals(ImPagesData.getProperty("FaceBookLink"), fbActualURL);
+    public String getFaceBookLink(){
+        return fbButton.getAttribute("href");
+
     }
 
-    public void checkTwitterLink(){
-        String twActualURL = twButton.getAttribute("href");
-        Assert.assertEquals(ImPagesData.getProperty("TwitterLink"), twActualURL);
+    public String getTwitterLink(){
+        return twButton.getAttribute("href");
+
     }
 
-    public void checkLinkedInLink(){
-        String lInActualURL = lInButton.getAttribute("href");
-        Assert.assertEquals(ImPagesData.getProperty("LinkedInLink"), lInActualURL);
+    public String getLinkedInLink(){
+        return lInButton.getAttribute("href");
+
     }
 
     public void hoverAboutUsButton(){

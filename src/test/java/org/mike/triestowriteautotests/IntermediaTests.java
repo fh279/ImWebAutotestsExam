@@ -39,15 +39,21 @@ https://www.intermedia.com/
         whoWeArePage = new IntermediaWhoWeArePage(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ImPagesData.getProperty("mainIMPage"));
+
+
     }
 
     @Test
     public void intermediaPricesTest() throws InterruptedException {
+
+        System.out.println("intermediaPricesTest - погнали");
+        driver.get(ImPagesData.getProperty("mainIMPage"));
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();
         Assert.assertEquals(ImPagesData.getProperty("proPlanText"), uniteProductsPage.getProPlanText());
         Assert.assertEquals(ImPagesData.getProperty("enterprisePlanText"), uniteProductsPage.getEnterprisePlanText());
+        //driver.quit();
+        System.out.println("intermediaPricesTest - Пройдено");
     }
 
     @Test
@@ -72,11 +78,20 @@ https://www.intermedia.com/
          *   WebElement i'mCurrentCustomerButton.
          * Кликаю на i'mCurrentCustomerButton
          * */
+        System.out.println("chatBotIsUserACustomer - погнали");
+        //driver = new ChromeDriver();
+        driver.get(ImPagesData.getProperty("mainIMPage"));
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();
-        uniteProductsPage.clickOnSupportChatButton();
-        uniteProductsPage.checkIsUserACustomer();
+        uniteProductsPage.clickOnSupportChatButton(); // да бля!!!!
+        uniteProductsPage.getIsUserACustomerButton();
+        String erCustomerPartnerButton = ImPagesData.getProperty("customerPartnerButton");
+        String arCustomerPartnerButton = uniteProductsPage.getIsUserACustomerButton().getText(); // да сука!!!
+        Assert.assertEquals(erCustomerPartnerButton, arCustomerPartnerButton);
+        //driver.quit();
+        System.out.println("chatBotIsUserACustomer - Пройдено");
     }
+
     @Test
     public void linksYTFBTwitrLinkdInValidation() {
         /* 3. Validate links on social media(youtube, facebook, twitter, inst)
@@ -90,10 +105,25 @@ https://www.intermedia.com/
          * Сравнить данную ссылку и что получено в предыдущем шаге
          * Сделать то же для всех остальных ссылок
          */
-        mainPage.checkYouTubeLink();
-        mainPage.checkFaceBookLink();
-        mainPage.checkTwitterLink();
-        mainPage.checkLinkedInLink();
+        driver.get(ImPagesData.getProperty("mainIMPage"));
+
+        String erYouTubeLink = ImPagesData.getProperty("YouTubeLink");
+        String arYouTubeLink = mainPage.getYouTubeLink();
+        Assert.assertEquals(erYouTubeLink, arYouTubeLink);
+
+        String erFaceBookLink = ImPagesData.getProperty("FaceBookLink");
+        String arFaceBookLink = mainPage.getFaceBookLink();;
+        Assert.assertEquals(erFaceBookLink, arFaceBookLink);
+
+        String erTwitterLink = ImPagesData.getProperty("TwitterLink");
+        String arTwitterLink = mainPage.getTwitterLink();
+        Assert.assertEquals(erTwitterLink, arTwitterLink);
+
+        String erLinkedInLink = ImPagesData.getProperty("LinkedInLink");
+        String arLinkedInLink = mainPage.getLinkedInLink();
+        Assert.assertEquals(erLinkedInLink, arLinkedInLink);
+
+        System.out.println("linksYTFBTwitrLinkdInValidation - Пройдено");
     }
 
     @Test
@@ -127,6 +157,8 @@ https://www.intermedia.com/
         //andrewGphotoButton.click();
         //WebElement paragraphsOfAndrewBio = driver.findElement(By.xpath("//*[@id=\"leader_Andrew_Gachechiladze\"]/div[2]/div[2]/p[4]"));
         //List<WebElement> paragraphsOfAndrewBio = allBioOfAndrew.findElements(By.tagName("p"));
+        System.out.println("dataValidationAndrewG - погнали");
+        driver.get(ImPagesData.getProperty("mainIMPage"));
         mainPage.hoverAboutUsButton();
         mainPage.goToWhoWeArePage();
         String erAndrewGName = ImPagesData.getProperty("expectedAndrewG_name");
@@ -139,10 +171,12 @@ https://www.intermedia.com/
             String erAndrewGDetailedInfo = whoWeArePage.getExpectedResultsAndrewGDetailedInfo()[i];
             Assert.assertEquals(erAndrewGDetailedInfo, arAndrewGDetailedInfo);
         }
+        //driver.quit();
+        System.out.println("dataValidationAndrewG - Пройдено");
     }
 
     @Test
-    public void dataValidation_SupportData_Position() {
+    public void dataValidationSupportDataPosition() {
         /* Создаем драйвер
          *  браузер в полноэкранный режим
          *  Неявное ожидание 1 секунда
@@ -151,9 +185,11 @@ https://www.intermedia.com/
          *       пихаем его в WebElement supportCallNumber
          *  Пишем сверку найденного в supportCallNumber текста и номера тех поддержки: 800-379-7729
          * */
+        System.out.println("dataValidationSupportDataPosition - погнали");
         driver.get(ImPagesData.getProperty("supportIMPage"));
         WebElement supportCallNumber = driver.findElement(By.xpath("//*[@id=\"support\"]/section[5]/div/div/div[2]/div[2]/p[2]/span[2]/a"));
         Assert.assertEquals("800-379-7729", supportCallNumber.getText());
+        System.out.println("dataValidationSupportDataPosition - Пройдено");
     }
 }
 /*
