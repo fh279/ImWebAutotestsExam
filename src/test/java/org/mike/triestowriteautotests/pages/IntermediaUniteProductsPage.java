@@ -34,18 +34,16 @@ public class IntermediaUniteProductsPage {
 
     private By supportChatButtonFrameLocator = By.xpath("//*[@id=\"drift-frame-chat\"]/iframe");
 
-    public void clickOnSupportChatButton() {
-        driver.switchTo().frame(supportChatBotFrame);
-        WebElement supportChatButton = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(supportChatButtonLocator));
+    private By supportChatTextLocator = By.xpath("//*[@id=\"root\"]/main/div[3]/div[1]/div[1]/div/div");
 
-        try {
-            Thread.sleep(3000);  // РАЗОБРАТЬСЯ С ОЖИДАНИЯМИ И УБРАТЬ ЭТО!!! ПРОБЛЕМА В НЕПРОГРУЗЕ КНОПКИ ЭШЛИ!!!
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            System.out.println("УЕРИ ЭТО!!!!!");
-        }
-        supportChatButton.click();
+    public void clickOnSupportChatButton() {
+
+        driver.switchTo().frame(supportChatBotFrame);
+
+        WebElement supportChatTextButton = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(supportChatTextLocator));
+
+        supportChatTextButton.click();
 
         driver.switchTo().defaultContent();
     }

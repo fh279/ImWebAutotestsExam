@@ -11,7 +11,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 import static org.mike.triestowriteautotests.dataprovider.ImPagesData.getProperty;
 
@@ -30,7 +29,7 @@ public class IntermediaTests {
     3. Validate links on social media(youtube, facebook, twitter, inst)
     4. Vaildate that Andrew G has the proper position at About US page (Andrew Gachechiladze EVP of Product Development and Engineering).Validate that after click on the name, detailed information is displayed
     5. Validate Contact US page contains proper details: Intermedia Support 800-379-7729 */
-    //описывать имя тестового метода так: Что_условия_результат()
+
     @BeforeClass
     public static void setup() {
         System.setProperty("webdriver.chrome.driver", getProperty("chromedriver"));
@@ -40,7 +39,7 @@ public class IntermediaTests {
         whoWeArePage = new IntermediaWhoWeArePage(driver);
         intermediaSupportPage = new IntermediaSupportPage(driver);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(9));
     }
 
     @Test
@@ -48,12 +47,18 @@ public class IntermediaTests {
         driver.get(getProperty("mainIMPage"));
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();
-        assertEquals(getProperty("proPlanText"), uniteProductsPage.getProPlanText()); // ПЕРЕПЕШИ!!!!
-        assertEquals(getProperty("enterprisePlanText"), uniteProductsPage.getEnterprisePlanText()); // ПЕРЕПЕШИ!!!!
+
+        String erProPlanText = getProperty("proPlanText");
+        String arProPlanText = uniteProductsPage.getProPlanText();
+        assertEquals(erProPlanText, arProPlanText);
+
+        String erEnterprisePlanText = getProperty("enterprisePlanText");
+        String arEnterprisePlanText = uniteProductsPage.getEnterprisePlanText();
+        assertEquals(erEnterprisePlanText, arEnterprisePlanText);
     }
 
     @Test
-    public void chatBotIsUserACustomer() {
+    public void chatBotIsUserACustomerButtonValidation() {
         driver.get(getProperty("mainIMPage"));
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();

@@ -46,6 +46,7 @@ public class IntermediaMainPage {
 
     public void entryIMUniteProductsPage() {
         imUniteButton.click();
+        driver.manage().deleteAllCookies();
     }
 
     public String getYouTubeLink() {
