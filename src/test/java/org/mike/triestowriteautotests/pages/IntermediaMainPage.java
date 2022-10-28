@@ -65,6 +65,7 @@ public class IntermediaMainPage {
     }
 
     public void hoverAboutUsButton() {
+
         Actions action = new Actions(driver);
         action.moveToElement(aboutUsButton).perform();
     }

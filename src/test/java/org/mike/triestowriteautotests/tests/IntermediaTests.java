@@ -1,16 +1,17 @@
 package org.mike.triestowriteautotests.tests;
-
+import org.assertj.core.api.*;
 import org.junit.*;
 import org.mike.triestowriteautotests.pages.IntermediaMainPage;
 import org.mike.triestowriteautotests.pages.IntermediaSupportPage;
 import org.mike.triestowriteautotests.pages.IntermediaUniteProductsPage;
 import org.mike.triestowriteautotests.pages.IntermediaWhoWeArePage;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-
+import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.assertEquals;
 import static org.mike.triestowriteautotests.dataprovider.ImPagesData.getProperty;
 
@@ -29,11 +30,6 @@ public class IntermediaTests {
     3. Validate links on social media(youtube, facebook, twitter, inst)
     4. Vaildate that Andrew G has the proper position at About US page (Andrew Gachechiladze EVP of Product Development and Engineering).Validate that after click on the name, detailed information is displayed
     5. Validate Contact US page contains proper details: Intermedia Support 800-379-7729 */
-    // 1. метод сравнения строк в проверки Андрюхи вынеси в отдельный класс вспомогательных методов.
-    //         может быть туда еще какие то методы можно будет вынести
-    // 2. page object
-    // 3. что то там про пропертис.
-    // 4. вынеси настройки, хардкод и прочее в imPagesData.properties и назови фавйл по человечьи.
     //описывать имя тестового метода так: Что_условия_результат()
     @BeforeClass
     public static void setup() {
@@ -44,16 +40,16 @@ public class IntermediaTests {
         whoWeArePage = new IntermediaWhoWeArePage(driver);
         intermediaSupportPage = new IntermediaSupportPage(driver);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Test
-    public void intermediaPricesTest() {
+    public void intermediaPrices() {
         driver.get(getProperty("mainIMPage"));
         mainPage.hoverIMPopUpMenu();
         mainPage.entryIMUniteProductsPage();
-        assertEquals(getProperty("proPlanText"), uniteProductsPage.getProPlanText());
-        assertEquals(getProperty("enterprisePlanText"), uniteProductsPage.getEnterprisePlanText());
+        assertEquals(getProperty("proPlanText"), uniteProductsPage.getProPlanText()); // ПЕРЕПЕШИ!!!!
+        assertEquals(getProperty("enterprisePlanText"), uniteProductsPage.getEnterprisePlanText()); // ПЕРЕПЕШИ!!!!
     }
 
     @Test
@@ -90,9 +86,11 @@ public class IntermediaTests {
 
     @Test
     public void dataValidationAndrewG() {
+        SoftAssertions softAssertions = new SoftAssertions();
         driver.get(getProperty("mainIMPage"));
         mainPage.hoverAboutUsButton();
         mainPage.goToWhoWeArePage();
+        whoWeArePage.getButtonAndrewGPhoto().click();
 
         String erAndrewGName = getProperty("expectedAndrewG_name");
         String arAndrewGName = whoWeArePage.getAndrewGName();
@@ -102,15 +100,13 @@ public class IntermediaTests {
         String arAndrewGDuty = whoWeArePage.getAndrewGDuty();
         assertEquals(erAndrewGDuty, arAndrewGDuty);
 
-        whoWeArePage.getButtonAndrewGPhoto().click();
-        for (int i = 0; i < whoWeArePage.getAllAndrewGBio().size(); i++) {
-            String arAndrewGDetailedInfo = whoWeArePage.getAllAndrewGBio().get(i).getText();
-            String erAndrewGDetailedInfo = whoWeArePage.getExpectedResultsAndrewGDetailedInfo()[i];
-            assertEquals(erAndrewGDetailedInfo, arAndrewGDetailedInfo);
-            // выполни сравнение 2 массивов, а не проход, будет лаконичнее.
-            // либо вверни сюда SoftAssert.
+        List<String> erAndrewGDetailedInfo = whoWeArePage.getExpectedResultsAndrewGDetailedInfo();
+        List<String> arAndrewGDetailedInfo = whoWeArePage.getAllAndrewGBio();
+        softAssertions.assertThat(erAndrewGDetailedInfo).hasSameElementsAs(arAndrewGDetailedInfo);
+
+        softAssertions.assertAll();
+
         }
-    }
 
     @Test
     public void supportCallNumberValidation() {
@@ -120,5 +116,4 @@ public class IntermediaTests {
         assertEquals(erSupportCallNumber, arSupportCallNumber);
     }
 }
-// переделай метод с Андреем Г.
 // разберись с ожиданиями.

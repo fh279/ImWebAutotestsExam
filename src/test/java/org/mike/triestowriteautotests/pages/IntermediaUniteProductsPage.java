@@ -6,15 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.xml.sax.Locator;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.function.Function;
 
 public class IntermediaUniteProductsPage {
 
@@ -42,7 +36,7 @@ public class IntermediaUniteProductsPage {
 
     public void clickOnSupportChatButton() {
         driver.switchTo().frame(supportChatBotFrame);
-        WebElement supportChatButton = new WebDriverWait(driver, 10)
+        WebElement supportChatButton = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(supportChatButtonLocator));
 
         try {
@@ -52,13 +46,6 @@ public class IntermediaUniteProductsPage {
             System.out.println("УЕРИ ЭТО!!!!!");
         }
         supportChatButton.click();
-        /*long time = System.currentTimeMillis();
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(30))
-                .pollingEvery(Duration.ofSeconds(5))
-                .ignoring(NoSuchElementException.class);
-
-        WebElement foo = wait.until(driver -> driver.findElement(supportChatButtonLocator));*/
 
         driver.switchTo().defaultContent();
     }
@@ -66,7 +53,7 @@ public class IntermediaUniteProductsPage {
     public WebElement getIsUserACustomerButton() {
         WebElement supportChatFrame = driver.findElement(By.xpath("//*[@id=\"drift-frame-chat\"]/iframe"));
         driver.switchTo().frame(supportChatFrame);
-        return new WebDriverWait(driver, 10)
+        return new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(userIsAPartnerCustomerButton));
     }
 
